@@ -1,0 +1,25 @@
+services:
+  # Backend API with ROS2
+  - type: web
+    name: ros2-backend
+    env: docker
+    dockerfilePath: ./Dockerfile.backend
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ROS_DOMAIN_ID
+        value: 0
+    healthCheckPath: /health
+
+  # Frontend (Optional - GitHub PagesやVercelを使う場合は不要)
+  # - type: web
+  #   name: ros2-frontend
+  #   env: node
+  #   buildCommand: cd frontend && npm install && npm run build
+  #   startCommand: cd frontend && npm run preview
+  #   envVars:
+  #     - key: VITE_API_URL
+  #       fromService:
+  #         type: web
+  #         name: ros2-backend
+  #         property: url
