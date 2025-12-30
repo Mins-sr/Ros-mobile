@@ -8,15 +8,9 @@ interface Message {
   timestamp: string
 }
 
-interface ROS2Node {
-  name: string
-  running: boolean
-  messageCount: number
-}
-
 // ブラウザ内ROS2シミュレーター
 class ROS2Simulator {
-  private publisherInterval: NodeJS.Timeout | null = null
+  private publisherInterval: number | null = null
   private subscriberCallback: ((msg: string) => void) | null = null
   private publisherRunning = false
   private subscriberRunning = false
