@@ -49,6 +49,10 @@ jobs:
           # GitHub Pages用のベースパス設定
           VITE_BASE_PATH: /Ros-mobile/
 
+      - name: Copy rosbridge HTML to dist
+        run: |
+          cp frontend/public/rosbridge.html frontend/dist/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

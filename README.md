@@ -4,10 +4,18 @@ ROS2開発をWebアプリから操作できるAIエージェントシステム
 
 ## 🚀 クイックスタート - GitHub Pagesでデモを試す
 
-**すぐに試せるライブデモ:**
-👉 **[https://mins-sr.github.io/Ros-mobile/](https://mins-sr.github.io/Ros-mobile/)**
+### デモ版（2種類）
 
-ブラウザ内でROS2のパブリッシャー/サブスクライバー通信をシミュレートできます。
+1. **ブラウザ内シミュレーション版**（バックエンド不要）
+   👉 [https://mins-sr.github.io/Ros-mobile/](https://mins-sr.github.io/Ros-mobile/)
+   - ブラウザだけで動作
+   - ROS2をシミュレート
+
+2. **実際のROS2制御版**（rosbridge使用）
+   👉 [https://mins-sr.github.io/Ros-mobile/rosbridge.html](https://mins-sr.github.io/Ros-mobile/rosbridge.html)
+   - 実際のROS2環境に接続
+   - リアルタイム制御
+   - セットアップ: [ROSBRIDGE_SETUP.md](./ROSBRIDGE_SETUP.md)
 
 ## 概要
 
@@ -29,17 +37,31 @@ AIエージェントに自然言語で指示を出すと、ROS2コマンドと�
 
 ## デプロイオプション
 
-### オプション1: GitHub Pages（最も簡単）
-- ✅ すぐに試せる
-- ✅ 無料
-- ⚠️ ブラウザ内シミュレーション（実際のROS2は動かない）
+### オプション1: GitHub Pages（最も簡単・推奨）
 
-### オプション2: ローカル環境（実際のROS2）
+#### 1-A. ブラウザシミュレーション版
+- ✅ すぐに試せる
+- ✅ 完全無料
+- ⚠️ シミュレーションのみ
+
+#### 1-B. rosbridge版（実際のROS2）
+- ✅ GitHub Pagesでフロントエンド（無料）
 - ✅ 実際のROS2が動作
-- ⚠️ ROS2環境が必要
+- ⚠️ 別途ROS2環境が必要
+- 📖 詳細: [ROSBRIDGE_SETUP.md](./ROSBRIDGE_SETUP.md)
+
+**アーキテクチャ:**
+```
+GitHub Pages (無料) → WebSocket → ROS2 + rosbridge (ローカル/クラウド)
+```
+
+### オプション2: ローカル環境（フルスタック）
+- ✅ 完全なバックエンドあり
+- ✅ AI統合
+- ⚠️ Docker必要
 
 ### オプション3: クラウドデプロイ（本番運用）
-- ✅ 実際のROS2が動作
+- ✅ すべてクラウド
 - ✅ インターネットからアクセス可能
 - 詳細: [DEPLOYMENT.md](./DEPLOYMENT.md)
 

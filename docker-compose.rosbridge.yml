@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  # ROS2 環境 + rosbridge
+  ros2-rosbridge:
+    build:
+      context: .
+      dockerfile: Dockerfile.rosbridge
+    container_name: ros2-rosbridge
+    environment:
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+    ports:
+      - "9090:9090"  # rosbridge WebSocket
+    volumes:
+      - ./ros2_nodes:/workspace/ros2_nodes
+    network_mode: host
+    tty: true
+    stdin_open: true
+    command: >
+      bash -c "source /opt/ros/humble/setup.bash &&
+               ros2 launch rosbridge_server rosbridge_websocket_launch.xml"

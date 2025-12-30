@@ -1,0 +1,13 @@
+services:
+  # ROS2 + rosbridge WebSocket Server
+  - type: web
+    name: ros2-rosbridge-server
+    env: docker
+    dockerfilePath: ./Dockerfile.rosbridge
+    dockerContext: .
+    envVars:
+      - key: ROS_DOMAIN_ID
+        value: 0
+    # rosbridgeのWebSocketポート
+    healthCheckPath: /
+    autoDeploy: true
