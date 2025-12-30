@@ -1,0 +1,23 @@
+# ROS2 Humble環境
+FROM osrf/ros:humble-desktop
+
+# 必要なパッケージのインストール
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-colcon-common-extensions \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# Pythonパッケージ
+RUN pip3 install --upgrade pip
+
+# ワークスペース作成
+WORKDIR /workspace
+
+# ROS2セットアップ
+RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+
+# エントリーポイント
+COPY ros2_nodes/ /workspace/ros2_nodes/
+
+CMD ["/bin/bash"]

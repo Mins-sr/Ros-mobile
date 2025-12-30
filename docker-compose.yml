@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # ROS2 環境
+  ros2:
+    build:
+      context: .
+      dockerfile: Dockerfile.ros2
+    container_name: ros2-agent
+    environment:
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+    volumes:
+      - ./ros2_nodes:/workspace/ros2_nodes
+    network_mode: host
+    tty: true
+    stdin_open: true
+
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: backend-api
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+    volumes:
+      - ./backend:/app
+      - ./ros2_nodes:/workspace/ros2_nodes
+    ports:
+      - "8000:8000"
+    network_mode: host
+    depends_on:
+      - ros2
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend-web
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend

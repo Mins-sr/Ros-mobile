@@ -1,0 +1,26 @@
+# Backend with ROS2
+FROM osrf/ros:humble-desktop
+
+# Pythonと必要なツールのインストール
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# ワークディレクトリ
+WORKDIR /app
+
+# Python依存関係
+COPY backend/requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# アプリケーションコピー
+COPY backend/ /app/
+
+# ROS2環境設定
+RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+
+# ポート公開
+EXPOSE 8000
+
+# サーバー起動
+CMD ["bash", "-c", "source /opt/ros/humble/setup.bash && python3 main.py"]

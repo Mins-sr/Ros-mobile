@@ -1,0 +1,4 @@
+# ROS2ノードの依存関係
+# ROS2 Humbleがインストールされている前提
+rclpy
+std-msgs
